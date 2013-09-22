@@ -33,4 +33,10 @@ public class UserBean {
         UserDAO ud = df.getUserDAO();
         return ud.userExists(login);
     }
+    
+    public UserDTO getUserByLogin(String login) {
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
+        UserDAO ud = df.getUserDAO();
+        return ud.getUserByLogin(login);
+    }
 }

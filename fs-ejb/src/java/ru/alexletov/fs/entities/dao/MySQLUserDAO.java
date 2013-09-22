@@ -154,4 +154,27 @@ public class MySQLUserDAO implements UserDAO {
         }
         return true;
     }
+
+    @Override
+    public UserDTO getUserByLogin(String login) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> criteria = builder.createQuery(User.class);
+
+        Root<User> userRoot = criteria.from(User.class);
+        criteria.select(userRoot);
+        criteria.where(builder.equal(userRoot.get("login"), login));
+        
+        User user;
+        try {
+            user = entityManager.createQuery(criteria).getSingleResult();
+        } catch (NoResultException ex) {
+            Logger.getLogger(MySQLUserDAO.class.getName()).log(Level.INFO, null, ex);
+            return null;
+        }
+        
+        if (user == null) {
+            return null;
+        }
+        return new UserDTO(user);
+    }
 }

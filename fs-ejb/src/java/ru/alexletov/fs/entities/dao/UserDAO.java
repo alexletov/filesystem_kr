@@ -42,4 +42,6 @@ public interface UserDAO {
     public UserDTO addNewUser(UserDTO user, String password);
     
     public boolean userExists(String login);
+    
+    public UserDTO getUserByLogin(String login);
 }
