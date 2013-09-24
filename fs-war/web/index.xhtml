@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -11,15 +10,12 @@
 <h:body>    
     <c:choose>
         <c:when test="#{loginBean.logged}">
-            
-<p:layout fullPage="true">  
-  
-    <p:layoutUnit position="north" size="100" header="File Share Server">  
-        <div align="right">Hello, 
-            <h:outputText value="#{loginBean.name} #{loginBean.lastname}" />!
-        </div>
-    </p:layoutUnit>  
-  
+            <ui:include src="filebrowser.xhtml" />
+        </c:when>
+        <c:otherwise>
+            <ui:include src="login.xhtml" />
+        </c:otherwise>
+    </c:choose>  
     <p:layoutUnit position="south" size="100">  
         <center>
             &copy; 2013. Vasilii Aleksandrov<br />
@@ -29,25 +25,7 @@
             <a href="http://www.spbstu.ru/" target="_blank">
                 Saint-Petersburg State Polytechnical University</a>.
         </center>
-    </p:layoutUnit>  
-  
-    <p:layoutUnit position="east" size="200" header="Right" resizable="true"
-                  collapsible="true">  
-        <h:outputText value="East unit content." />  
-    </p:layoutUnit>    
-    <p:layoutUnit position="center">  
-        Main page content.
-    </p:layoutUnit>  
-  
-</p:layout>  
-            
-            
-            
-        </c:when>
-        <c:otherwise>
-            <ui:include src="login.xhtml" />
-        </c:otherwise>
-    </c:choose>          
+    </p:layoutUnit> 
 </h:body>
 </html>
 

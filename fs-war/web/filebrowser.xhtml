@@ -1,0 +1,59 @@
+<p:layout fullPage="true"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core">  
+  
+    <p:layoutUnit position="north" size="100" header="File Share Server">  
+        <div align="right">Hello, 
+            <h:outputText value="#{loginBean.name} #{loginBean.lastName}" />!
+        </div>
+    </p:layoutUnit>  
+    <p:layoutUnit position="east" size="200" header="Right" resizable="true"
+                  collapsible="true">  
+        <h:outputText value="East unit content." />  
+    </p:layoutUnit>    
+    <p:layoutUnit position="center">  
+        <h:form id="form">
+            <p:dataGrid var="file" value="#{fileBean.files}" columns="3"  
+                rows="5" paginator="true"  
+                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+                rowsPerPageTemplate="5,10,15">  
+
+                <p:panel header="#{file.name}" style="text-align:center">  
+                    <h:panelGrid columns="1" style="width:100%">  
+                        <p:graphicImage value="/images/cars/#{file.type}.jpg"/>   
+
+                        <h:outputText value="#{file.createDate}" />  
+
+                        <p:commandLink update=":form:fileDetail" oncomplete="PF('fileDialog').show()" title="View Detail">  
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+                            <f:setPropertyActionListener value="#{file}"   
+                                    target="#{fileBean.selectedFile}" />  
+                        </p:commandLink>  
+                    </h:panelGrid>  
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog header="File Detail" widgetVar="fileDialog" modal="true">  
+                <p:outputPanel id="fileDetail" style="text-align:center;">  
+
+                    <p:graphicImage value="/images/cars/#{file.type}.jpg"/>  
+
+                    <h:panelGrid  columns="2" cellpadding="5">  
+                        <h:outputLabel for="name" value="Name: " />  
+                        <h:outputText id="name" value="#{tableBean.selectedFile.name}" />  
+
+                        <h:outputLabel for="date" value="Created: " />  
+                        <h:outputText id="date" value="#{tableBean.selectedFile.createDate}" />  
+
+                        <h:outputLabel for="type" value="Shared: " />  
+                        <h:outputText id="type" value="#{tableBean.selectedFile.shared}"/>  
+                        
+                        <h:outputLabel for="descr" value="Description: " />  
+                        <h:outputText id="descr" value="#{tableBean.selectedFile.description}"/>  
+                    </h:panelGrid>  
+                </p:outputPanel>  
+            </p:dialog>  
+        </h:form>
+    </p:layoutUnit>  
+  
+</p:layout>  

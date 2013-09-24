@@ -29,7 +29,8 @@ public class LoginBean {
     private String login;
     private String password;
     private String name;
-    private String lastname;
+    private String lastName;
+    private Integer id;
     /**
      * Creates a new instance of LoginBean
      */
@@ -48,7 +49,8 @@ public class LoginBean {
         }
         UserDTO user = ub.getUserByLogin(login);
         this.name = user.getName();
-        this.lastname = user.getLastname();
+        this.lastName = user.getLastname();
+        this.id = user.getId();
     }
     
     public void validateName(FacesContext context, UIComponent component,
@@ -103,12 +105,20 @@ public class LoginBean {
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
     
 }

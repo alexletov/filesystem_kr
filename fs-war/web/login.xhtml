@@ -1,9 +1,10 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <ui:component xmlns:ui="http://java.sun.com/jsf/facelets"
               xmlns:h="http://java.sun.com/jsf/html"
               xmlns:p="http://primefaces.org/ui">
-<center>
-    <p:panel header="File Share Server Login" style="width:400px;">
+   
+<p:layoutUnit position="center">  
+    <center> 
+        <p:panel header="File Share Server Login" style="width:400px;">
         <h:form enctype="ssl">
             <h:outputText value="Authentication failed!" style="color:red;" rendered="#{loginBean.loginError}" />
             <p>
@@ -34,6 +35,8 @@
                 <h:link value="Register a new user." outcome="register/register" />
             </p>
         </h:form>
-    </p:panel>
-</center>
+        </p:panel>
+    </center>
+</p:layoutUnit>    
+
 </ui:component>
