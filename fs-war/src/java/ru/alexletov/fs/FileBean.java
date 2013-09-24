@@ -36,7 +36,7 @@ public class FileBean {
             fi.setName("file" + Integer.toString(i)+ ".doc");
             fi.setOwner(null);
             fi.setShared(0);
-            fi.setType(".doc");
+            fi.setType("doc");
             files.add(fi);
         }
     }

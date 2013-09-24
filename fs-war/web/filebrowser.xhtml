@@ -4,8 +4,13 @@
           xmlns:f="http://java.sun.com/jsf/core">  
   
     <p:layoutUnit position="north" size="100" header="File Share Server">  
-        <div align="right">Hello, 
-            <h:outputText value="#{loginBean.name} #{loginBean.lastName}" />!
+        <div align="right">
+            <h:form>
+                Hello, 
+                <h:outputText value="#{loginBean.name} #{loginBean.lastName}" />!
+                <p:commandButton value="Logout" action="#{loginBean.doLogOut}"
+                     ajax="false"/>
+            </h:form>
         </div>
     </p:layoutUnit>  
     <p:layoutUnit position="east" size="200" header="Right" resizable="true"

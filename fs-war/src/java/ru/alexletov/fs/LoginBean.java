@@ -40,6 +40,7 @@ public class LoginBean {
     public boolean isLogged() {
         return logged;
     }
+    
     public void doLogin() {
         loginError = false;
         logged = authBean.doLogin(login, password);
@@ -47,11 +48,23 @@ public class LoginBean {
             loginError = true;
             return;
         }
+        this.password = "";
         UserDTO user = ub.getUserByLogin(login);
         this.name = user.getName();
         this.lastName = user.getLastname();
         this.id = user.getId();
     }
+    
+    public String doLogOut() {
+        logged = false;
+        loginError = false;
+        login = "";
+        password = "";
+        name = "";
+        lastName = "";
+        id = 0;
+        return "index";
+    }       
     
     public void validateName(FacesContext context, UIComponent component,
             Object value) {
