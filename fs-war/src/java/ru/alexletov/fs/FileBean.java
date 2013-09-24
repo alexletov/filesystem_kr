@@ -29,16 +29,18 @@ public class FileBean {
     }
     
     private void createTestFiles() {
-        FileInfoDTO fi = new FileInfoDTO();
-        fi.setCreateDate(new Date());
-        fi.setDescription("descr");
-        fi.setName("file.doc");
-        fi.setOwner(null);
-        fi.setShared(0);
-        fi.setType(".doc");
-        files.add(fi);
+        for(int i = 0; i < 100; i++) {
+            FileInfoDTO fi = new FileInfoDTO();
+            fi.setCreateDate(new Date());
+            fi.setDescription("Descr");
+            fi.setName("file" + Integer.toString(i)+ ".doc");
+            fi.setOwner(null);
+            fi.setShared(0);
+            fi.setType(".doc");
+            files.add(fi);
+        }
     }
-
+    
     public List<FileInfoDTO> getFiles() {
         return files;
     }
