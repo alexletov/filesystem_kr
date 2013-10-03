@@ -6,11 +6,15 @@ package ru.alexletov.fs.entities.dao;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -175,5 +179,16 @@ public class MySQLUserDAO implements UserDAO {
             return null;
         }
         return new UserDTO(user);
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        Query query = entityManager.createQuery("SELECT e FROM User e");
+        ArrayList<UserDTO> users = new ArrayList<UserDTO>();
+        for(User u : (List<User>)query.getResultList())
+        {
+            users.add(new UserDTO(u));
+        }
+        return users;
     }
 }

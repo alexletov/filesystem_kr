@@ -13,13 +13,21 @@
             </h:form>
         </div>
     </p:layoutUnit>  
-    <p:layoutUnit position="east" size="200" header="Right" resizable="true"
+    <p:layoutUnit position="east" size="200" header="Folders" resizable="true"
                   collapsible="true">  
-        <h:outputText value="East unit content." />  
+        <h:form id="userForm">  
+            <p:dataList value="#{folderBean.users}" var="user"
+                         id="userList">
+                <p:commandLink value="#{user.login}">  
+                    <f:setPropertyActionListener value="#{user.id}"
+                                                 target="#{folderBean.curFolder}" />  
+                </p:commandLink>
+            </p:dataList>
+        </h:form> 
     </p:layoutUnit>    
     <p:layoutUnit position="center">  
-        <h:form id="form">
-            <p:dataGrid var="file" value="#{fileBean.files}" columns="4"  
+        <h:form id="folderForm">
+            <p:dataGrid var="file" value="#{folderBean.files}" columns="4"  
                 rows="12" paginator="true"  
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="4,8,12">  
@@ -34,7 +42,7 @@
                         <p:commandLink update=":form:fileDetail" oncomplete="PF('fileDialog').show()" title="View Detail">  
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
                             <f:setPropertyActionListener value="#{file}"   
-                                    target="#{fileBean.selectedFile}" />  
+                                    target="#{folderBean.selectedFile}" />  
                         </p:commandLink>  
                     </h:panelGrid>  
                 </p:panel>

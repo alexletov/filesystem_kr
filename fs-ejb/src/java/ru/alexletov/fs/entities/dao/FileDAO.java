@@ -4,10 +4,15 @@
  */
 package ru.alexletov.fs.entities.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import ru.alexletov.fs.dto.FileInfoDTO;
+
 /**
  *
  * @author Alex
  */
 public interface FileDAO {
     
+    public ArrayList<FileInfoDTO> getFilesByUserFolder(Integer id);
 }

@@ -25,7 +25,7 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public FileDAO getFileDAO() {
-        return new MySQLFileDAO();
+        return new MySQLFileDAO(em);
     }
     
 }

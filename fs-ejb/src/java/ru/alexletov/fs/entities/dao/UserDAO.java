@@ -4,6 +4,8 @@
  */
 package ru.alexletov.fs.entities.dao;
 
+import java.util.Collection;
+import java.util.List;
 import ru.alexletov.fs.dto.UserDTO;
 
 /**
@@ -44,4 +46,6 @@ public interface UserDAO {
     public boolean userExists(String login);
     
     public UserDTO getUserByLogin(String login);
+    
+    public List<UserDTO> getAllUsers();
 }

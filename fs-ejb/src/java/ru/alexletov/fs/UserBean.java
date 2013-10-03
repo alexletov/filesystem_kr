@@ -4,6 +4,8 @@
  */
 package ru.alexletov.fs;
 
+import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -38,5 +40,12 @@ public class UserBean {
         DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
         UserDAO ud = df.getUserDAO();
         return ud.getUserByLogin(login);
+    }
+    
+    public List<UserDTO> getAllUsers() {
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
+        UserDAO ud = df.getUserDAO();
+        return ud.getAllUsers();
+        
     }
 }
