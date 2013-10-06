@@ -5,6 +5,7 @@
 package ru.alexletov.fs.entities.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,8 +14,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import ru.alexletov.fs.dto.FileInfoDTO;
+import ru.alexletov.fs.dto.FileDTO;
+import ru.alexletov.fs.dto.FileDTO;
 import ru.alexletov.fs.entities.File;
+import ru.alexletov.fs.entities.User;
 
 /**
  *
@@ -28,7 +31,7 @@ public class MySQLFileDAO implements FileDAO {
     }
 
     @Override
-    public ArrayList<FileInfoDTO> getFilesByUserFolder(Integer id) {
+    public ArrayList<FileDTO> getFilesByUserFolder(Integer id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<File> criteria = builder.createQuery(File.class);
 
@@ -45,15 +48,30 @@ public class MySQLFileDAO implements FileDAO {
             files = entityManager.createQuery(criteria).getResultList();
         } catch (NoResultException ex) {
             Logger.getLogger(MySQLUserDAO.class.getName()).log(Level.INFO, null, ex);
-            return new ArrayList<FileInfoDTO>();
+            return new ArrayList<FileDTO>();
         }
         
-        ArrayList<FileInfoDTO> fid = new ArrayList<FileInfoDTO>();
+        ArrayList<FileDTO> fid = new ArrayList<FileDTO>();
         for(File f : files) {
-            FileInfoDTO dto = new FileInfoDTO(f);
+            FileDTO dto = new FileDTO(f);
             fid.add(dto);
         }
         return fid;
+    }
+
+    @Override
+    public void addFile(FileDTO file) {
+        File f = new File();
+        f.setCreateDate(new Date());
+        f.setDescription(file.getDescription());
+        f.setPath(file.getPath());
+        f.setName(file.getName());
+        f.setShared(file.getShared());        
+        //FIXME: !!!
+        User user = entityManager.find(User.class, file.getOwner().getId());
+        
+        f.setUserid(user);
+        entityManager.persist(f);
     }
     
     

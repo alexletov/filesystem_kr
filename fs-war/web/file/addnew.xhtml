@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<title>File Share Server Add New File</title>
+</h:head>
+<h:body>
+<h:form enctype="multipart/form-data">
+    <p:fieldset legend="Upload File" widgetVar="uplWidget"
+                style="width: 600px;" id="uploadform">
+        <h:panelGrid columns="3" width="550" border="0">
+            <h:outputLabel value="File" />
+            <p:fileUpload value="#{fileUploadBean.file}" mode="simple"
+                          id="f" />
+            <p:message for="f"/>
+            
+            <h:outputLabel value="Description" />
+            <p:inputTextarea value="#{fileUploadBean.description}"
+                             id="d" />
+            <p:message for="d"/>
+            
+            <h:outputLabel value="Shared" />
+            <p:selectBooleanCheckbox value="#{fileUploadBean.shared}"
+                                     id="s"/>
+            <p:message for="s"/>
+            <p:commandButton value="Submit" ajax="false"  
+                    action="#{fileUploadBean.upload}" /> 
+        </h:panelGrid>
+    </p:fieldset>
+</h:form>
+</h:body>
+</html>

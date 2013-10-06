@@ -11,19 +11,20 @@ import ru.alexletov.fs.entities.File;
  *
  * @author Alex
  */
-public class FileInfoDTO {
+public class FileDTO {
     private Integer id;
     private String name;
     private Date createDate;
     private String description;
     private String type;
     private Integer shared;
+    private String path;
     private UserDTO owner;
 
-    public FileInfoDTO() {
+    public FileDTO() {
     }
     
-    public FileInfoDTO(File file) {
+    public FileDTO(File file) {
         this.id = file.getId();
         this.name = file.getName();
         this.createDate = file.getCreateDate();
@@ -34,7 +35,7 @@ public class FileInfoDTO {
     }
     
     private String makeType(String name) {
-        String names[] = name.split(".");
+        String[] names = name.split("\\.");
         if(names.length > 0) {
             return names[names.length - 1];
         }
@@ -96,6 +97,14 @@ public class FileInfoDTO {
 
     public void setOwner(UserDTO owner) {
         this.owner = owner;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
     
 }

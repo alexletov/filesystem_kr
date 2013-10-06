@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "File.findAll", query = "SELECT f FROM File f"),
     @NamedQuery(name = "File.findById", query = "SELECT f FROM File f WHERE f.id = :id"),
     @NamedQuery(name = "File.findByName", query = "SELECT f FROM File f WHERE f.name = :name"),
+    @NamedQuery(name = "File.findByPath", query = "SELECT f FROM File f WHERE f.path = :path"),
     @NamedQuery(name = "File.findByCreateDate", query = "SELECT f FROM File f WHERE f.createDate = :createDate"),
     @NamedQuery(name = "File.findByShared", query = "SELECT f FROM File f WHERE f.shared = :shared")})
 public class File implements Serializable {
@@ -51,17 +52,18 @@ public class File implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Lob
-    @Column(name = "content")
-    private byte[] content;
+    @Size(min = 1, max = 1024)
+    @Column(name = "path")
+    private String path;
     @Basic(optional = false)
     @NotNull
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Lob
+    @Size(max = 65535)
     @Column(name = "description")
-    private byte[] description;
+    private String description;
     @Basic(optional = false)
     @NotNull
     @Column(name = "shared")
@@ -77,10 +79,10 @@ public class File implements Serializable {
         this.id = id;
     }
 
-    public File(Integer id, String name, byte[] content, Date createDate, int shared) {
+    public File(Integer id, String name, String path, Date createDate, int shared) {
         this.id = id;
         this.name = name;
-        this.content = content;
+        this.path = path;
         this.createDate = createDate;
         this.shared = shared;
     }
@@ -101,12 +103,12 @@ public class File implements Serializable {
         this.name = name;
     }
 
-    public byte[] getContent() {
-        return content;
+    public String getPath() {
+        return path;
     }
 
-    public void setContent(byte[] content) {
-        this.content = content;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public Date getCreateDate() {
@@ -117,11 +119,11 @@ public class File implements Serializable {
         this.createDate = createDate;
     }
 
-    public byte[] getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(byte[] description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

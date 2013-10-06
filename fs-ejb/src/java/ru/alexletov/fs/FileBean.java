@@ -9,7 +9,8 @@ import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import ru.alexletov.fs.dto.FileInfoDTO;
+import ru.alexletov.fs.dto.FileDTO;
+import ru.alexletov.fs.dto.FileDTO;
 import ru.alexletov.fs.entities.dao.DAOFactory;
 import ru.alexletov.fs.entities.dao.FileDAO;
 
@@ -23,10 +24,16 @@ public class FileBean {
     @PersistenceContext
     EntityManager em;
     
-    public List<FileInfoDTO> getFiles(Integer userid) {
+    public List<FileDTO> getFiles(Integer userid) {
         DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
         FileDAO fd = df.getFileDAO();
         return fd.getFilesByUserFolder(userid);
+    }
+    
+    public void addFile(FileDTO file) {
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
+        FileDAO fd = df.getFileDAO();
+        fd.addFile(file);
     }
 
     // Add business logic below. (Right-click in editor and choose

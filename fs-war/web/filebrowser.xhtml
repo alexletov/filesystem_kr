@@ -2,7 +2,7 @@
           xmlns:p="http://primefaces.org/ui"
           xmlns:h="http://java.sun.com/jsf/html"
           xmlns:f="http://java.sun.com/jsf/core">  
-  
+    <f:event type="preRenderView" listener="#{folderBean.update}" />
     <p:layoutUnit position="north" size="100" header="File Share Server">  
         <div align="right">
             <h:form>
@@ -18,14 +18,16 @@
         <h:form id="userForm">  
             <p:dataList value="#{folderBean.users}" var="user"
                          id="userList">
-                <p:commandLink value="#{user.login}">  
+                <p:commandLink value="#{user.login}" ajax="false">  
                     <f:setPropertyActionListener value="#{user.id}"
                                                  target="#{folderBean.curFolder}" />  
                 </p:commandLink>
             </p:dataList>
+            <p:commandButton value="Upload" action="file/addnew.xhtml"
+                             ajax="false"/>
         </h:form> 
     </p:layoutUnit>    
-    <p:layoutUnit position="center">  
+    <p:layoutUnit position="center">
         <h:form id="folderForm">
             <p:dataGrid var="file" value="#{folderBean.files}" columns="4"  
                 rows="12" paginator="true"  
@@ -39,7 +41,7 @@
                         <h:outputText value="#{file.createDate}">  
                             <f:convertDateTime pattern="dd.MM.yyyy hh:mm" />
                         </h:outputText>
-                        <p:commandLink update=":form:fileDetail" oncomplete="PF('fileDialog').show()" title="View Detail">  
+                        <p:commandLink update=":folderForm:fileDetail" oncomplete="PF('fileDialog').show()" title="View Detail">  
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
                             <f:setPropertyActionListener value="#{file}"   
                                     target="#{folderBean.selectedFile}" />  

@@ -5,8 +5,7 @@
 package ru.alexletov.fs.entities.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-import ru.alexletov.fs.dto.FileInfoDTO;
+import ru.alexletov.fs.dto.FileDTO;
 
 /**
  *
@@ -14,5 +13,6 @@ import ru.alexletov.fs.dto.FileInfoDTO;
  */
 public interface FileDAO {
     
-    public ArrayList<FileInfoDTO> getFilesByUserFolder(Integer id);
+    public ArrayList<FileDTO> getFilesByUserFolder(Integer id);
+    public void addFile(FileDTO file);
 }
