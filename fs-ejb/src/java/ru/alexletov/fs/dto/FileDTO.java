@@ -19,6 +19,7 @@ public class FileDTO {
     private String type;
     private Integer shared;
     private String path;
+    private String contentType;
     private UserDTO owner;
 
     public FileDTO() {
@@ -32,6 +33,8 @@ public class FileDTO {
         this.description = file.getDescription().toString();
         this.type = makeType(this.name);
         this.owner = new UserDTO(file.getUserid());
+        this.path = file.getPath();
+        this.contentType = file.getContentType();
     }
     
     private String makeType(String name) {
@@ -105,6 +108,14 @@ public class FileDTO {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
     
 }

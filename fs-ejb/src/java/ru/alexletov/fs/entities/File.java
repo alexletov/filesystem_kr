@@ -57,6 +57,12 @@ public class File implements Serializable {
     private String path;
     @Basic(optional = false)
     @NotNull
+    @Lob
+    @Size(min = 1, max = 65535)
+    @Column(name = "content_type")
+    private String contentType;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
@@ -79,10 +85,11 @@ public class File implements Serializable {
         this.id = id;
     }
 
-    public File(Integer id, String name, String path, Date createDate, int shared) {
+    public File(Integer id, String name, String path, String contentType, Date createDate, int shared) {
         this.id = id;
         this.name = name;
         this.path = path;
+        this.contentType = contentType;
         this.createDate = createDate;
         this.shared = shared;
     }
@@ -109,6 +116,14 @@ public class File implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public Date getCreateDate() {

@@ -5,15 +5,12 @@
 package ru.alexletov.fs;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import org.primefaces.event.FileUploadEvent;
 import ru.alexletov.fs.dto.FileDTO;
 import ru.alexletov.fs.dto.UserDTO;
 
@@ -55,6 +52,17 @@ public class FolderBean {
     
     public void update() {
         files = fb.getFiles(curFolder);
+        List<FileDTO> toRemove= new ArrayList<FileDTO>();
+
+        for(FileDTO f : files) {
+            if((!lb.isAdmin()) &&
+                    ((f.getShared() != 1) &&
+                    (f.getOwner().getId() != lb.getId()))) {
+                toRemove.add(f);
+            }
+        }
+        files.removeAll(toRemove);
+        
         UserDTO shared = new UserDTO();
         shared.setId(0);
         shared.setLogin("Shared");
@@ -62,6 +70,10 @@ public class FolderBean {
         users.add(shared);
         users.addAll(ub.getAllUsers());
     }
+    
+     public void download() {
+         
+     }
         
     public List<FileDTO> getFiles() {
         return files;

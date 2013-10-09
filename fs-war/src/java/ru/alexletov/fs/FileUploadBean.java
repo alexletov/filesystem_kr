@@ -65,7 +65,7 @@ public class FileUploadBean {
                 UserDTO u = new UserDTO();
                 u.setId(lb.getId());
                 f.setOwner(u);
-                
+                f.setContentType(file.getContentType());
                 fb.addFile(f);
             } catch (IOException ex) {
                 Logger.getLogger(FileUploadBean.class.getName()).log(Level.SEVERE, null, ex);

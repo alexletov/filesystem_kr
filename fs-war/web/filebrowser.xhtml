@@ -41,11 +41,12 @@
                         <h:outputText value="#{file.createDate}">  
                             <f:convertDateTime pattern="dd.MM.yyyy hh:mm" />
                         </h:outputText>
-                        <p:commandLink update=":folderForm:fileDetail" oncomplete="PF('fileDialog').show()" title="View Detail">  
+                        <p:commandButton value="Download"
+                                         ajax="false"> 
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
                             <f:setPropertyActionListener value="#{file}"   
                                     target="#{folderBean.selectedFile}" />  
-                        </p:commandLink>  
+                        </p:commandButton>  
                     </h:panelGrid>  
                 </p:panel>
             </p:dataGrid>

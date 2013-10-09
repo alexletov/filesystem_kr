@@ -66,7 +66,8 @@ public class MySQLFileDAO implements FileDAO {
         f.setDescription(file.getDescription());
         f.setPath(file.getPath());
         f.setName(file.getName());
-        f.setShared(file.getShared());        
+        f.setShared(file.getShared()); 
+        f.setContentType(file.getContentType());
         //FIXME: !!!
         User user = entityManager.find(User.class, file.getOwner().getId());
         

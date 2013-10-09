@@ -31,6 +31,7 @@ public class LoginBean {
     private String name;
     private String lastName;
     private Integer id;
+    private boolean admin;
     /**
      * Creates a new instance of LoginBean
      */
@@ -53,6 +54,12 @@ public class LoginBean {
         this.name = user.getName();
         this.lastName = user.getLastname();
         this.id = user.getId();
+        if (user.getAdmin() > 0) {
+            this.admin = true;
+        }
+        else {
+            this.admin = false;
+        }        
     }
     
     public String doLogOut() {
@@ -132,6 +139,14 @@ public class LoginBean {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
     
 }
