@@ -10,7 +10,6 @@ import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import ru.alexletov.fs.dto.FileDTO;
-import ru.alexletov.fs.dto.FileDTO;
 import ru.alexletov.fs.entities.dao.DAOFactory;
 import ru.alexletov.fs.entities.dao.FileDAO;
 
