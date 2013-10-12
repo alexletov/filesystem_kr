@@ -4,13 +4,22 @@
  */
 package ru.alexletov.fs;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import ru.alexletov.fs.dto.FileDTO;
 import ru.alexletov.fs.dto.UserDTO;
 
@@ -35,6 +44,10 @@ public class FolderBean {
     private LoginBean lb;
     
     private Integer curFolder;
+    
+    private StreamedContent dlFile;
+    
+    private static final String destination = "\\files\\";
     /**
      * Creates a new instance of FileBean
      */
@@ -70,11 +83,22 @@ public class FolderBean {
         users.add(shared);
         users.addAll(ub.getAllUsers());
     }
+
+    public StreamedContent getDlFile() {
+        InputStream stream = null;
+        try {
+            String fname = System.getProperties().getProperty( "jboss.server.data.dir") +
+                    destination + selectedFile.getPath();
+            stream = new FileInputStream(new File(fname));
+            dlFile = new DefaultStreamedContent(stream, selectedFile.getContentType(), selectedFile.getName());
+            return dlFile;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FolderBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
-     public void download() {
-         
-     }
-        
+            
     public List<FileDTO> getFiles() {
         return files;
     }

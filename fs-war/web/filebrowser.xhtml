@@ -45,7 +45,8 @@
                                          ajax="false"> 
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
                             <f:setPropertyActionListener value="#{file}"   
-                                    target="#{folderBean.selectedFile}" />  
+                                    target="#{folderBean.selectedFile}" /> 
+                            <p:fileDownload value="#{folderBean.dlFile}" />
                         </p:commandButton>  
                     </h:panelGrid>  
                 </p:panel>
