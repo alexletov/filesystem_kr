@@ -36,7 +36,7 @@
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="4,8,12">  
 
-                <p:panel header="#{file.name}" style="text-align:center">
+                <p:panel header="#{file.name}@#{file.owner.login}" style="text-align:center">
                     <h:outputText value="Shared" rendered="#{file.shared == 1}" />
                     <h:panelGrid columns="1" style="width:100%">  
                         <p:graphicImage value="/images/filetypes/#{file.type}.png"/>   
@@ -45,13 +45,13 @@
                             <f:convertDateTime pattern="dd.MM.yyyy hh:mm" />
                         </h:outputText>
                         <h:outputText value="No desciption"
-                                      rendered="#{!folderBean.checkFileDescription(file.description)}" />
+                                      rendered="#{folderBean.checkFileDescription(file.description)}" />
                             <p:commandButton id="detBtn" value="Details" type="button"
                                              ajax="false"
-                                             rendered="#{folderBean.checkFileDescription(file.description)}"> 
+                                             rendered="#{!folderBean.checkFileDescription(file.description)}"> 
                             </p:commandButton>                        
                             <p:overlayPanel id="chartPanel" for="detBtn" hideEffect="fade"
-                                            rendered="#{folderBean.checkFileDescription(file.description)}">  
+                                            rendered="#{!folderBean.checkFileDescription(file.description)}">  
                                 #{file.description} 
                             </p:overlayPanel>
                          

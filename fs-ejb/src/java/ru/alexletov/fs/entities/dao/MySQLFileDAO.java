@@ -80,6 +80,7 @@ public class MySQLFileDAO implements FileDAO {
         File f = entityManager.find(File.class, file.getId());
         f.setShared(file.getShared());
         f.setDescription(file.getDescription());
+        f.setName(file.getName());
         entityManager.persist(f);
     }
     

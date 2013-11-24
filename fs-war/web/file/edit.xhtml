@@ -10,7 +10,11 @@
     <p:fieldset legend="Upload File" widgetVar="uplWidget"
                 style="width: 600px;" id="uploadform">
         <h:panelGrid columns="3" width="550" border="0">
-                        
+            <h:outputLabel value="File Name" />
+            <p:inputText value="#{fileEditBean.name}"
+                             id="n" />
+            <p:message for="n"/>
+            
             <h:outputLabel value="Description" />
             <p:inputTextarea value="#{fileEditBean.description}"
                              id="d" />

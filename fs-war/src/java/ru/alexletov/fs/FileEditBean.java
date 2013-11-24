@@ -22,6 +22,8 @@ public class FileEditBean {
     private FileBean fb;
     
     private FileDTO fileToEdit;
+    private String name;
+    private String ext;
     private String description;
     private boolean shared;
     /**
@@ -31,6 +33,7 @@ public class FileEditBean {
     }
 
     public String edit() {
+        fileToEdit.setName(name + "." + ext);
         fileToEdit.setDescription(description);
         fileToEdit.setShared(shared ? 1 : 0);
         fb.editFile(fileToEdit);
@@ -47,6 +50,16 @@ public class FileEditBean {
         //Get file info
         description = fileToEdit.getDescription();
         shared = (fileToEdit.getShared() != 0);
+        String fname = fileToEdit.getName();
+        Integer extp = fname.lastIndexOf('.');
+        if (extp > -1) {
+            name = fname.substring(0, extp);
+            ext = fname.substring(extp + 1);    
+        }
+        else {
+            name = fname;
+            ext = "";
+        }            
     }
 
     public String getDescription() {
@@ -63,5 +76,15 @@ public class FileEditBean {
 
     public void setShared(boolean shared) {
         this.shared = shared;
-    }   
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 }
