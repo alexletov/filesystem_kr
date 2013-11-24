@@ -74,6 +74,18 @@ public class MySQLFileDAO implements FileDAO {
         f.setUserid(user);
         entityManager.persist(f);
     }
+
+    @Override
+    public void editFile(FileDTO file) {
+        File f = entityManager.find(File.class, file.getId());
+        f.setShared(file.getShared());
+        f.setDescription(file.getDescription());
+        entityManager.persist(f);
+    }
     
-    
+    @Override
+    public void deleteFile(FileDTO file) {
+        File f = entityManager.find(File.class, file.getId());
+        entityManager.remove(f);
+    }
 }

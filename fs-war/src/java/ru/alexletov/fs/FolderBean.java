@@ -7,8 +7,8 @@ package ru.alexletov.fs;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,6 +43,9 @@ public class FolderBean {
     @ManagedProperty("#{loginBean}")
     private LoginBean lb;
     
+    @ManagedProperty("#{fileEditBean}")
+    private FileEditBean feb;
+    
     private Integer curFolder;
     
     private StreamedContent dlFile;
@@ -56,14 +59,14 @@ public class FolderBean {
     }
     
     @PostConstruct
-    private void init() {
-        if(curFolder == null) {
-            curFolder = lb.getId();
-        }            
+    private void init() {                  
         update();
     }
     
     public void update() {
+        if(curFolder == null) {
+            curFolder = lb.getId();
+        }
         files = fb.getFiles(curFolder);
         List<FileDTO> toRemove= new ArrayList<FileDTO>();
 
@@ -83,6 +86,19 @@ public class FolderBean {
         users.add(shared);
         users.addAll(ub.getAllUsers());
     }
+    
+    public String editFile() {
+        feb.setFileToEdit(selectedFile);
+        return "file/edit.xhtml";
+    }
+    
+    public String deleteFile() {
+        String fname = System.getProperties().getProperty( "jboss.server.data.dir") +
+                    destination + selectedFile.getPath() + "/" + selectedFile.getName();
+        (new File(fname)).delete();
+        fb.deleteFile(selectedFile);
+        return "";
+    }
 
     public StreamedContent getDlFile() {
         InputStream stream = null;
@@ -98,6 +114,22 @@ public class FolderBean {
         return null;
     }
     
+    public boolean isEditFileCheckAccess(FileDTO file) {
+        return file.getOwner().getId() == lb.getId() || lb.isAdmin();
+    }
+    
+    public boolean checkFileDescription(String file) {
+        if (file == null) {
+            return true;
+        }
+        return file.length() == 0;
+    }
+    
+    public String doLogOut() {
+        curFolder = null;
+        return lb.doLogOut();
+    }
+            
             
     public List<FileDTO> getFiles() {
         return files;
@@ -133,6 +165,14 @@ public class FolderBean {
 
     public void setCurFolder(Integer curFolder) {
         this.curFolder = curFolder;
+    }
+
+    public FileEditBean getFeb() {
+        return feb;
+    }
+
+    public void setFeb(FileEditBean feb) {
+        this.feb = feb;
     }
     
 }

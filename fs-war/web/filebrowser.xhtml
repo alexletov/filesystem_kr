@@ -1,14 +1,16 @@
 <p:layout fullPage="true"
           xmlns:p="http://primefaces.org/ui"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:f="http://java.sun.com/jsf/core">  
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions">  
     <f:event type="preRenderView" listener="#{folderBean.update}" />
     <p:layoutUnit position="north" size="100" header="File Share Server">  
         <div align="right">
             <h:form>
                 Hello, 
                 <h:outputText value="#{loginBean.name} #{loginBean.lastName}" />!
-                <p:commandButton value="Logout" action="#{loginBean.doLogOut}"
+                <p:commandButton value="Logout" action="#{folderBean.doLogOut}"
                      ajax="false"/>
             </h:form>
         </div>
@@ -34,20 +36,43 @@
                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
                 rowsPerPageTemplate="4,8,12">  
 
-                <p:panel header="#{file.name}" style="text-align:center">  
+                <p:panel header="#{file.name}" style="text-align:center">
+                    <h:outputText value="Shared" rendered="#{file.shared == 1}" />
                     <h:panelGrid columns="1" style="width:100%">  
                         <p:graphicImage value="/images/filetypes/#{file.type}.png"/>   
 
                         <h:outputText value="#{file.createDate}">  
                             <f:convertDateTime pattern="dd.MM.yyyy hh:mm" />
                         </h:outputText>
+                        <h:outputText value="No desciption"
+                                      rendered="#{!folderBean.checkFileDescription(file.description)}" />
+                            <p:commandButton id="detBtn" value="Details" type="button"
+                                             ajax="false"
+                                             rendered="#{folderBean.checkFileDescription(file.description)}"> 
+                            </p:commandButton>                        
+                            <p:overlayPanel id="chartPanel" for="detBtn" hideEffect="fade"
+                                            rendered="#{folderBean.checkFileDescription(file.description)}">  
+                                #{file.description} 
+                            </p:overlayPanel>
+                         
                         <p:commandButton value="Download"
-                                         ajax="false"> 
-                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />   
+                                         ajax="false">  
                             <f:setPropertyActionListener value="#{file}"   
                                     target="#{folderBean.selectedFile}" /> 
                             <p:fileDownload value="#{folderBean.dlFile}" />
                         </p:commandButton>  
+                        <p:commandButton value="Edit" action="#{folderBean.editFile}"
+                                rendered="#{folderBean.isEditFileCheckAccess(file)}"                                
+                                ajax="false">
+                            <f:setPropertyActionListener value="#{file}"   
+                                    target="#{folderBean.selectedFile}" /> 
+                        </p:commandButton>
+                        <p:commandButton value="Delete" action="#{folderBean.deleteFile}"
+                                rendered="#{folderBean.isEditFileCheckAccess(file)}"                                
+                                ajax="false">
+                            <f:setPropertyActionListener value="#{file}"   
+                                    target="#{folderBean.selectedFile}" /> 
+                        </p:commandButton>
                     </h:panelGrid>  
                 </p:panel>
             </p:dataGrid>

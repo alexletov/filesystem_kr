@@ -15,4 +15,6 @@ public interface FileDAO {
     
     public ArrayList<FileDTO> getFilesByUserFolder(Integer id);
     public void addFile(FileDTO file);
+    public void editFile(FileDTO file);
+    public void deleteFile(FileDTO file);
 }

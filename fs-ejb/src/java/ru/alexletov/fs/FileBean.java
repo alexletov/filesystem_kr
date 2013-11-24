@@ -34,7 +34,18 @@ public class FileBean {
         FileDAO fd = df.getFileDAO();
         fd.addFile(file);
     }
+    
+    public void editFile(FileDTO file) {
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
+        FileDAO fd = df.getFileDAO();
+        fd.editFile(file);
+    }
 
+    public void deleteFile(FileDTO file) {
+        DAOFactory df = DAOFactory.getDAOFactory(DAOFactory.MYSQL, em);
+        FileDAO fd = df.getFileDAO();
+        fd.deleteFile(file);
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     

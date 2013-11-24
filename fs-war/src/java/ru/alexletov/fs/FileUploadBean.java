@@ -35,6 +35,7 @@ public class FileUploadBean {
     @ManagedProperty("#{loginBean}")
     private LoginBean lb;
     
+    
     private UploadedFile file;
     private String description;
     private boolean shared;

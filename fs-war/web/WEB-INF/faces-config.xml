@@ -29,7 +29,7 @@
     </navigation-case>
     <navigation-case>
         <from-action>#{fileUploadBean.upload}</from-action>
-        <from-outcome>success</from-outcome>
+        <from-outcome>error</from-outcome>
         <to-view-id>file/adderror.xhtml</to-view-id>
     </navigation-case>
 </navigation-rule>
@@ -37,8 +37,18 @@
 <navigation-rule>
     <from-view-id>filebrowser.xhtml</from-view-id>
     <navigation-case>
-        <from-outcome>download</from-outcome>
-        <to-view-id>file/download.xhtml</to-view-id>
+        <from-action>#{folderBean.editFile}</from-action>
+        <from-outcome>edit</from-outcome>
+        <to-view-id>file/edit.xhtml</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>file/edit.xhtml</from-view-id>
+    <navigation-case>
+        <from-action>#{fileEditBean.edit}</from-action>
+        <from-outcome>edit</from-outcome>
+        <to-view-id>index.xhtml</to-view-id>
     </navigation-case>
 </navigation-rule>
 </faces-config>
